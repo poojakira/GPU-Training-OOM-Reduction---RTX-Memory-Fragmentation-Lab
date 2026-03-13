@@ -118,6 +118,7 @@ class FragPredictor(nn.Module):
         model = cls.from_config(config)
         state = torch.load(path, map_location=device, weights_only=True)
         model.load_state_dict(state)
+        model.to(device)
         model.eval()
         return model
 

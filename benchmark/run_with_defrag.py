@@ -2,8 +2,8 @@
 Benchmark: Training WITH predictive defragmentation enabled.
 """
 
-import torch
-import torch.nn as nn
+import torch  # type: ignore
+import torch.nn as nn  # type: ignore
 import time
 import json
 import os
@@ -12,9 +12,9 @@ from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from gpudefrag._models import SimpleGPT2
-from gpudefrag.callback import DefragCallback
-from gpudefrag.utils import get_logger, ensure_cuda
+from gpudefrag._models import SimpleGPT2  # type: ignore
+from gpudefrag.callback import DefragCallback  # type: ignore
+from gpudefrag.utils import get_logger, ensure_cuda  # type: ignore
 
 log = get_logger("benchmark.defrag")
 
@@ -39,22 +39,17 @@ def run_benchmark_with_defrag(iterations: int = 100, batch_size: int = 8, seq_le
     criterion = nn.CrossEntropyLoss()
 
     callback = DefragCallback(threshold=0.7)
+    callback.monitor.config.max_prediction_latency_ms = 200  # Higher for CPU-inference benchmark
     callback.on_train_begin()
 
-    stats = {
-        "timestamp": datetime.now().isoformat(),
-        "system": "gpudefrag",
-        "oom_errors": 0,
-        "restarts": 0,
-        "iteration_times": [],
-        "peak_memory_mb": 0.0,
-        "avg_memory_mb": 0.0,
-        "memory_snapshots": [],
-    }
+    oom_errors: int = 0
+    iteration_times: list[float] = []
+    peak_memory_mb = 0.0
+    memory_snapshots = []
 
     log.info("Defrag benchmark: %d iterations, batch=%d, seq=%d", iterations, batch_size, seq_len)
 
-    memory_sum = 0.0
+    memory_sum: float = 0.0
     for i in range(iterations):
         t0 = time.perf_counter()
         try:
@@ -76,18 +71,18 @@ def run_benchmark_with_defrag(iterations: int = 100, batch_size: int = 8, seq_le
             callback.on_step_end()
 
             elapsed = time.perf_counter() - t0
-            stats["iteration_times"].append(elapsed)
+            iteration_times.append(elapsed)
 
-            allocated = torch.cuda.memory_allocated() / (1024**2)
-            reserved = torch.cuda.memory_reserved() / (1024**2)
-            peak = torch.cuda.max_memory_allocated() / (1024**2)
+            allocated = float(torch.cuda.memory_allocated()) / (1024**2)
+            reserved = float(torch.cuda.memory_reserved()) / (1024**2)
+            peak = float(torch.cuda.max_memory_allocated()) / (1024**2)
             frag = 1.0 - (allocated / reserved) if reserved > 0 else 0.0
 
-            stats["peak_memory_mb"] = max(stats["peak_memory_mb"], peak)
-            memory_sum += allocated
+            peak_memory_mb = max(peak_memory_mb, peak)
+            memory_sum += allocated  # type: ignore
 
             if i % 10 == 0:
-                stats["memory_snapshots"].append({
+                memory_snapshots.append({
                     "iteration": i, "allocated_mb": allocated,
                     "reserved_mb": reserved, "frag": frag,
                 })
@@ -96,22 +91,31 @@ def run_benchmark_with_defrag(iterations: int = 100, batch_size: int = 8, seq_le
 
         except torch.cuda.OutOfMemoryError:
             log.error("OOM at iteration %d", i)
-            stats["oom_errors"] += 1
+            oom_errors += 1  # type: ignore
             torch.cuda.empty_cache()
 
     callback.on_train_end()
 
-    stats["avg_iteration_time"] = sum(stats["iteration_times"]) / max(len(stats["iteration_times"]), 1)
-    stats["avg_memory_mb"] = memory_sum / max(iterations, 1)
-    stats["monitor_stats"] = callback.stats()
+    stats = {
+        "timestamp": datetime.now().isoformat(),
+        "system": "gpudefrag",
+        "oom_errors": oom_errors,
+        "restarts": 0,
+        "iteration_times": iteration_times,
+        "peak_memory_mb": peak_memory_mb,
+        "avg_memory_mb": memory_sum / max(iterations, 1),  # type: ignore
+        "memory_snapshots": memory_snapshots,
+        "avg_iteration_time": sum(iteration_times) / max(len(iteration_times), 1),
+        "monitor_stats": callback.stats()
+    }
 
     os.makedirs("results", exist_ok=True)
     with open("results/defrag.json", "w") as f:
         json.dump(stats, f, indent=2, default=str)
 
     log.info("Defrag done. OOM: %d | Avg time: %.3fs | Peak: %.0fMB | Compactions: %d",
-             stats["oom_errors"], stats["avg_iteration_time"], stats["peak_memory_mb"],
-             stats["monitor_stats"]["total_compactions"])
+             oom_errors, stats["avg_iteration_time"], peak_memory_mb,
+             callback.stats()["total_compactions"])
     return stats
 
 
