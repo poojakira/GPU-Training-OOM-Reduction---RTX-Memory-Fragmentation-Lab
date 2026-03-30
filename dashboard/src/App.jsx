@@ -229,8 +229,8 @@ function App() {
             </div>
           )}
 
-          {/* Fallback rendering for other tabs to keep UI dense */}
-          {activeSection !== 'dashboard' && (
+          {/* Tab Rendering Logic */}
+          {activeSection !== 'dashboard' && activeSection !== 'telemetry' && activeSection !== 'console' && activeSection !== 'memory' && (
              <div className="glass-card h-full w-full flex items-center justify-center">
                  <div className="text-center font-mono opacity-50">
                      <Database size={48} className="mx-auto mb-4" />
@@ -238,6 +238,72 @@ function App() {
                      <p className="text-[10px] mt-2 text-brand">AWAITING BACKEND ALLOCATOR...</p>
                  </div>
              </div>
+          )}
+
+          {activeSection === 'telemetry' && (
+            <div className="w-full h-full">
+               <div className="glass-card h-full flex flex-col p-6">
+                 <span className="kpi-title text-brand mb-4">Extended Telemetry Feed (Iteration Times)</span>
+                 <div className="w-full h-[500px]">
+                    <IterationTimeChart 
+                      data={viewMode === 'live' ? data.liveHistory : (data.benchmark?.defrag.chart || [])} 
+                    />
+                 </div>
+               </div>
+            </div>
+          )}
+
+          {activeSection === 'console' && (
+            <div className="w-full h-[600px] flex">
+              <div className="glass-card flex-1 flex flex-col p-6">
+                <div className="flex justify-between items-center mb-6 border-b border-brand/20 pb-4">
+                  <span className="kpi-title text-brand">Active Execution Trace Log</span>
+                  <div className="text-[10px] text-brand font-mono px-2 py-1 bg-brand/10 rounded">CHANNEL: 01_FRAG_SENSE</div>
+                </div>
+                <div className="flex-1 overflow-y-auto">
+                  <table className="w-full text-left font-mono text-sm border-collapse">
+                    <thead className="text-[10px] text-secondary uppercase border-b border-white/10">
+                      <tr>
+                        <th className="py-2">Timestamp</th>
+                        <th className="py-2">Event</th>
+                        <th className="py-2">Impact</th>
+                        <th className="py-2">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.live?.history?.length > 0 ? (
+                        data.live.history.map(h => (
+                          <tr key={h.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td className="py-2 text-dim">{h.timestamp}</td>
+                            <td className="py-2 font-bold text-white">COMPACTION_EVENT_{h.id}</td>
+                            <td className="py-2 text-brand">+{h.freed}MB</td>
+                            <td className="py-2 text-brand">COMPLETE</td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4" className="text-center py-20 opacity-30 italic">Streaming from Allocation Hooks... Awaiting first trigger.</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeSection === 'memory' && (
+            <div className="w-full glass-card h-[600px] flex flex-col p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <span className="kpi-title text-brand">Physical VRAM Topology (Address View)</span>
+                  <div className="text-[10px] text-brand font-mono">ADDR RANGE: 0x0000 - 0xFFFF</div>
+                </div>
+                <div className="flex-1 w-full overflow-hidden flex items-center justify-center">
+                    <div style={{transform: 'scale(1.5)', transformOrigin: 'center'}}>
+                      <MemoryMap fragPercent={metrics.frag} />
+                    </div>
+                </div>
+            </div>
           )}
         </div>
       </main>
