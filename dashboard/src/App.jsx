@@ -97,7 +97,7 @@ function App() {
   const chartData = viewMode === 'live' ? data.liveHistory : (data.benchmark?.defrag.chart || []);
 
   if (!data.benchmark && !data.live) {
-    return <div className="h-screen w-screen flex items-center justify-center font-bold animate-pulse text-brand" style={{background: '#000'}}>NSIGHT PROFILER INITIALIZING...</div>;
+    return <div className="h-screen w-screen flex items-center justify-center font-bold animate-pulse text-brand" style={{background: '#09090b'}}>NSIGHT PROFILER INITIALIZING...</div>;
   }
 
   return (
@@ -159,9 +159,9 @@ function App() {
           </div>
         </header>
 
-        <div className="container">
+        <div className="container py-8 flex flex-col gap-6">
           {activeSection === 'dashboard' && (
-            <div className="flex flex-col gap-4 h-full">
+            <div className="flex flex-col gap-6 h-full">
               {/* Top Dense Row */}
               <div className="grid grid-cols-5 gap-4">
                 <div className="glass-card p-4">
@@ -184,10 +184,11 @@ function App() {
                   <div className="text-2xl font-mono text-white mb-2">{metrics.currentAlloc} MB</div>
                   <div className="text-[10px] text-secondary mt-2">VRAM ADDRESS BOUNDS</div>
                 </div>
-                <div className="glass-card p-4" style={{border: '1px solid #ff3333', background: 'rgba(255, 51, 51, 0.05)'}}>
+                <div className="glass-card p-5 relative">
+                  <div className="absolute inset-0 bg-accent-red/10 blur-[40px] rounded-full translate-y-4 -z-10 mix-blend-screen"></div>
                   <div className="kpi-title text-accent-red">Address Gap (FRAG)</div>
-                  <div className="text-2xl font-mono text-accent-red mb-2">{metrics.frag}%</div>
-                  <div className="text-[10px] text-accent-red mt-2">DEFRAGMENTER TRIGGER PROBABILITY</div>
+                  <div className="text-3xl font-mono text-accent-red mb-2 drop-shadow-[0_0_15px_rgba(255,51,51,0.5)]">{metrics.frag}%</div>
+                  <div className="text-[10px] text-accent-red mt-2 tracking-widest font-bold opacity-80">DEFER TRIGGER PROB</div>
                 </div>
               </div>
 

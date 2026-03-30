@@ -30,7 +30,11 @@
 }
 
 body {
-  background: radial-gradient(circle at 50% -20%, #152200 0%, var(--bg-dark) 100%);
+  background: #09090b;
+  background-image: 
+    radial-gradient(circle at 15% 0%, rgba(118, 185, 0, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 100%, rgba(0, 255, 204, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(20, 20, 25, 0.5) 0%, transparent 100%);
   color: var(--text-primary);
   height: 100vh;
   overflow: hidden;
@@ -40,19 +44,20 @@ body {
   display: flex;
   height: 100vh;
   width: 100vw;
-  backdrop-filter: blur(100px);
 }
 
 /* Sidebar Styling - Glassmorphism */
 aside.sidebar {
   width: 280px;
-  background: var(--bg-sidebar);
-  border-right: 1px solid var(--glass-border);
-  backdrop-filter: blur(20px);
+  background: rgba(10, 10, 12, 0.6);
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
   z-index: 10;
+  box-shadow: 10px 0 30px rgba(0,0,0,0.5);
 }
 
 .logo-section {
@@ -82,7 +87,7 @@ aside.sidebar {
   color: var(--text-secondary);
   text-decoration: none;
   font-weight: 500;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 0.5rem;
   border: 1px solid transparent;
   background: transparent;
@@ -90,13 +95,24 @@ aside.sidebar {
   cursor: pointer;
   font-family: inherit;
   font-size: 0.9rem;
+  position: relative;
 }
 
 .nav-link.active {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.15), transparent);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
-  border-left: 3px solid var(--brand);
-  border-radius: 4px 12px 12px 4px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05), 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  height: 50%;
+  width: 3px;
+  background: var(--brand);
+  border-radius: 4px;
+  box-shadow: 0 0 12px var(--brand);
 }
 
 .nav-link.active-mode {
@@ -121,14 +137,15 @@ aside.sidebar {
 }
 
 header.top-nav {
-  height: 70px;
-  padding: 0 2.5rem;
+  height: 80px;
+  padding: 0 3rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--glass-border);
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  background: rgba(10, 10, 12, 0.7);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   position: sticky;
   top: 0;
   z-index: 5;
@@ -192,32 +209,38 @@ header.top-nav {
 .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
 
-/* Glass Card Styling */
+/* Premium Glass Card Styling */
 .glass-card {
-  background: var(--bg-card);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(20, 20, 22, 0.6) 0%, rgba(10, 10, 12, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 24px;
   padding: 1.5rem;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
 }
 
-.glass-card::after {
+.glass-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%, rgba(255,255,255,0.02) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.08);
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 /* KPI Grid */
