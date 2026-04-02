@@ -257,12 +257,25 @@ def main() -> None:
         
         engine = GPUMemoryDefragmenter()
         try:
+            step = 0
             while True:
                 alloc = random.uniform(2000, 4000)
                 resv = random.uniform(4000, 6000)
+                
+                # Periodically simulate a compaction event
+                if step % 5 == 0:
+                    engine._history.append({
+                        "timestamp": time.time(),
+                        "reason": "predictive_sweep",
+                        "freed_mb": random.uniform(100, 300),
+                        "elapsed_ms": random.uniform(8, 15),
+                        "megabytes_compacted": random.uniform(500, 1500)
+                    })
+                
                 engine._persist_telemetry(alloc, resv, force=True)
                 _print(f"  → Heartbeat: {alloc:.1f}MB allocated / {resv:.1f}MB reserved", "dim")
                 time.sleep(args.interval)
+                step += 1
         except KeyboardInterrupt:
             _print("\n▶ Mock telemetry stopped.", "bold red")
 

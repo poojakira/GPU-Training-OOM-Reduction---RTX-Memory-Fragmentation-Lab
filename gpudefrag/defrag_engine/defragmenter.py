@@ -230,8 +230,8 @@ class GPUMemoryDefragmenter:
             history.append({
                 "compaction_id": h.get("compaction_id", 0),
                 "freed_mb": h.get("freed_mb", 0.0),
-                "frag_reduction": (h.get("megabytes_compacted", 0.0) / current_reserved_mb) if current_reserved_mb > 0 else 0.0,
-                "elapsed_ms": h.get("elapsed_ms", 0.0),
+                "fragReduction": h.get("frag_reduction", 0.0) if "frag_reduction" in h else (h.get("megabytes_compacted", 0.0) / current_reserved_mb if current_reserved_mb > 0 else 0.0),
+                "elapsedMs": h.get("elapsed_ms", 0.0),
                 "timestamp": time.strftime("%H:%M:%S", time.localtime(h.get("timestamp", time.time())))
             })
 

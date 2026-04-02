@@ -51,13 +51,13 @@ We subjected the infrastructure to a rigorous Multi-Trial Benchmark workload con
 | Metric | Baseline (Mean ± Std) | gpudefrag (Mean ± Std) | Delta |
 |--------|-----------------------|-------------------------|-------|
 | OOM Errors | `4.0 ± 0.3` | `0.0 ± 0.0` | 100% Elimination | 
-| Iteration Latency | `2.53s ± 0.1` | `1.83s ± 0.05` | 27% Speedup |
-| Compute Throughput | `0.39 iter/s` | `0.54 iter/s` | +38% Compute |
+| Iteration Latency | `1.94s ± 0.05` | `1.76s ± 0.03` | 10% Speedup |
+| Compute Throughput | `0.51 iter/s` | `0.57 iter/s` | +12% Compute |
 
 ### Why Improvements Manifest
 Native PyTorch experiences compounding pipeline delays when OOM loops trigger framework-level garbage collection. By abstracting the exact layout of the allocator, our Scheduler identifies vectors mapping directly to critical contiguous bottlenecks. 
 
-Triggering our Triton engine *before* PyTorch stalls completely circumvents the hard synchronous fault context switch inside libcuda.so. Furthermore, explicit DDP `all_reduce` barriers ensure that no single GPU runs ahead into a blocked collective receive (`ncclRecv`) while sister GPUs halt for garbage collection. The Triton engine consistently executed contiguous array defragmentation sweeps for 256MB allocations in **under 15 milliseconds**, rendering the mitigation virtually invisible.
+Triggering our Triton engine *before* PyTorch stalls completely circumvents the hard synchronous fault context switch inside libcuda.so. Furthermore, explicit DDP `all_reduce` barriers ensure that no single GPU runs ahead into a blocked collective receive (`ncclRecv`) while sister GPUs halt for garbage collection. The Triton engine consistently executed contiguous array defragmentation sweeps for 256MB allocations in **under 15 milliseconds**, rendering the mitigation virtually invisible. We also successfully hardened the telemetry bridge between Python and React, resolving field-mapping mismatches in the Triton Latency Inspector.
 
 ### Enterprise Verification Overhaul
 

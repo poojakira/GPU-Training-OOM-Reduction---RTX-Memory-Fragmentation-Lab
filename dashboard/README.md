@@ -1,16 +1,32 @@
-# React + Vite
+# AeroGrid v2.0.0 — Monitoring HUD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the production-grade React/Vite dashboard for the **Predictive GPU Memory Defragmenter**. It provides real-time visibility into VRAM topology, fragmentation forecasts, and Triton kernel execution traces.
 
-Currently, two official plugins are available:
+## 🚀 Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-## React Compiler
+2.  **Start the development server**:
+    ```bash
+    npm run dev
+    ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3.  **Standard Live Sync**:
+    The dashboard expects telemetry data in `public/live/`. The `gpudefrag` system automatically syncs results from the `results/` directory to this location when using `gpu-defragger dashboard`.
 
-## Expanding the ESLint configuration
+## 📊 Dashboard Modules
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Module | Panel | Description |
+|---|---|---|
+| **Mission Control** | 01, 10 | Primary KPIs: OOMs prevented and cumulative VRAM recovered. |
+| **VRAM Topology** | 01, 11 | Live 80GB physical memory layout with allocation distribution maps. |
+| **Shadow Forecast** | 03, 08 | Predictive fragmentation timeline ($T+100ms$) and OOM threshold overlay. |
+| **Scheduler** | 04 | Heatmap of the internal Transformer allocator attention weights. |
+| **DDP Sync** | 05, 12 | Multi-GPU barrier synchronization status and NCCL overhead. |
+| **Triton Inspector** | 06, 09 | Kernel-level latency profiling and compaction execution trace. |
+
+## 🛠️ Telemetry Sync
+The dashboard communicates with the `gpudefrag` REST API (default: `localhost:8000`) to fetch historical benchmarks and real-time GPU statistics. Field names are standardized to `camelCase` (e.g., `elapsedMs`, `fragReduction`) for seamless React state integration.
