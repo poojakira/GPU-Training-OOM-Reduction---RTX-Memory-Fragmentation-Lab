@@ -28,7 +28,7 @@ def run_evaluation():
     
     try:
         subprocess.run([sys.executable, str(compare_script)], check=True)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         log.error("Comparison script failed.")
         sys.exit(1)
         
@@ -72,7 +72,7 @@ def run_evaluation():
     log.info(f"Generating plots using {plot_script} ...")
     try:
         subprocess.run([sys.executable, str(plot_script)], check=True)
-    except subprocess.CalledProcessError as e:
+    except subprocess.CalledProcessError:
         log.error("Plotting script failed.")
         sys.exit(1)
         

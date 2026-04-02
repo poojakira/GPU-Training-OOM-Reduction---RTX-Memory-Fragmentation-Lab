@@ -6,7 +6,6 @@ allowing the user to see the dashboard respond in real-time.
 
 import time
 import torch # type: ignore
-import torch.nn as nn # type: ignore
 from gpudefrag import DefragMonitor # type: ignore
 from gpudefrag.utils import DefragConfig, get_logger # type: ignore
 

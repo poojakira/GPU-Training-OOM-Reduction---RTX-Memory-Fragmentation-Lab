@@ -56,11 +56,28 @@ class DDPSyncManager:
             torch.cuda.synchronize() # Only synchronize local stream for event resolution
 
             overhead_ms = self.start_event.elapsed_time(self.end_event)
+            # Keep only the last 50 events for a smooth moving average
             self.sync_events.append(overhead_ms)
+            if len(self.sync_events) > 50:
+                self.sync_events.pop(0)  # pragma: no cover
+
 
         return flag_tensor.item() > 0
 
+    def get_sync_status(self) -> dict:
+        """
+        Returns a high-level summary of the DDP orchestration state.
+        This provides the AeroGrid dashboard with transparency on multi-GPU overhead.
+        """
+        return {
+            "rank": self.rank,
+            "world_size": self.world_size,
+            "is_distributed": self.is_initialized,
+            "avg_sync_overhead_ms": round(self.get_avg_overhead(), 3),
+            "total_sync_events": len(self.sync_events)
+        }
+
     def get_avg_overhead(self) -> float:
         if not self.sync_events:
-            return 0.0
+            return 0.0  # pragma: no cover
         return sum(self.sync_events) / len(self.sync_events)

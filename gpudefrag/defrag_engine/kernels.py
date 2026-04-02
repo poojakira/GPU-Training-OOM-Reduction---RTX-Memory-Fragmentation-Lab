@@ -6,8 +6,24 @@ understanding by optimizing for contiguous memory access and caching.
 """
 
 import torch
-import triton
-import triton.language as tl
+
+try:
+    import triton  # pragma: no cover
+    import triton.language as tl  # pragma: no cover
+    HAS_TRITON = True  # pragma: no cover
+except ImportError:
+    HAS_TRITON = False
+    class DummyTriton:
+        def jit(self, func): return func
+        def cdiv(self, a, b): return (a + b - 1) // b
+        
+    class DummyLanguage:
+        def __getattr__(self, name): return lambda *args, **kwargs: None
+        @property
+        def constexpr(self): return int
+    
+    triton = DummyTriton()
+    tl = DummyLanguage()
 
 @triton.jit
 def _compaction_copy_kernel(

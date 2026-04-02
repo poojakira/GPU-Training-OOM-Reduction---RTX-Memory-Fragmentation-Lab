@@ -18,7 +18,11 @@ Metrics
   Utilization gain  = mean_util(defrag) - mean_util(baseline)   pp
 """
 
-import os, sys, json, time, argparse, statistics
+import os
+import sys
+import json
+import argparse
+import statistics
 from datetime import datetime
 
 import torch  # type: ignore

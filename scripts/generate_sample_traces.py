@@ -4,7 +4,6 @@ scripts/generate_sample_traces.py
 Generates sample CUDA allocation traces (Parquet) for the research prototype.
 """
 
-import os
 import sys
 import time
 from pathlib import Path
@@ -13,10 +12,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-import pandas as pd
 import numpy as np
 from gpudefrag.profiler.collector import AllocationCollector
-from gpudefrag.utils import DefragConfig
 
 def generate_traces():
     trace_dir = ROOT / "data" / "traces"

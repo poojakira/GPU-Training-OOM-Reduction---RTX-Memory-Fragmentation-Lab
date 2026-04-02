@@ -5,7 +5,6 @@ from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from typing import Dict, Any
 import json
-import os
 from pathlib import Path
 
 app = FastAPI(
@@ -71,7 +70,7 @@ def _gpu_snapshot() -> Dict[str, Any]:
                 "current_frag": round(1 - alloc / resv, 4) if resv > 0 else 0.0,
                 "cuda_available": True,
             }
-    except ImportError:
+    except (ImportError, Exception):
         pass
     return {
         "current_allocated_mb": 0.0,
@@ -142,6 +141,15 @@ def get_full_telemetry():
                     telemetry["total_freed_mb"] = live_data.get("total_freed_mb", 0.0)
                     telemetry["avg_latency_ms"] = live_data.get("avg_latency_ms", 0.0)
                     telemetry["compaction_history"] = live_data.get("compaction_history", [])
+                    
+                    # Core fix: The trainer process owns the CUDA allocation, not the API webserver.
+                    # We must pull real VRAM snapshot metrics from the dashboard telemetry file.
+                    if "current_allocated_mb" in live_data:
+                        telemetry["current_allocated_mb"] = live_data["current_allocated_mb"]
+                        telemetry["current_reserved_mb"] = live_data.get("current_reserved_mb", 0)
+                        telemetry["free_estimate_mb"] = live_data.get("free_estimate_mb", 0)
+                        telemetry["current_frag"] = live_data.get("current_frag", 0)
+                        telemetry["cuda_available"] = True
                 break # Success
             except (json.JSONDecodeError, OSError, IOError):
                 time.sleep(0.01) # Short backoff and retry

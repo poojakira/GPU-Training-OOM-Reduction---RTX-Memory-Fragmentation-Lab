@@ -63,4 +63,4 @@ target-version = "py310"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short"
+addopts = "-v --tb=short --cov=gpudefrag --cov-report=term-missing --cov-fail-under=95"

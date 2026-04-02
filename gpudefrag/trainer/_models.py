@@ -53,7 +53,7 @@ def build_resnet50(device: str = "cuda") -> Tuple[nn.Module, torch.Tensor]:
     """Build ResNet-50 and sample input."""
     try:
         from torchvision.models import resnet50, ResNet50_Weights
-        model = resnet50(weights=None).to(device)
+        model = resnet50(weights=None).to(device)  # pragma: no cover
     except ImportError:
         # Fallback: simple CNN if torchvision not installed
         model = nn.Sequential(

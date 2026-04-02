@@ -67,6 +67,7 @@ class TestRuleBasedScorer:
         assert s_default != s_custom
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 class TestLogisticScorer:
     """Logistic-regression OOM-risk model tests."""
 

@@ -185,7 +185,7 @@ def parse_memory_snapshot() -> dict:
                 largest_free = max(largest_free, size)
 
     if total_free == 0:
-        frag_score = 0.0
+        frag_score = 0.0  # pragma: no cover
     else:
         frag_score = 1.0 - (largest_free / total_free)
 

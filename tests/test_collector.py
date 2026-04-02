@@ -8,13 +8,27 @@ from gpudefrag.utils import DefragConfig
 
 
 class TestAllocationCollector:
+    @pytest.fixture(autouse=True)
+    def mock_cuda(self, monkeypatch):
+        # We enforce execution of the CUDA collector telemetry even on CPU machines
+        monkeypatch.setattr(torch.cuda, "is_available", lambda: True)
+        # Mock memory stats simulator
+        def mock_alloc():
+            mock_alloc.calls += 1
+            return mock_alloc.calls * 1024 
+        mock_alloc.calls = 0
+        monkeypatch.setattr(torch.cuda, "memory_allocated", mock_alloc)
+        monkeypatch.setattr(torch.cuda, "memory_reserved", lambda: 8192)
+
     def test_manual_record(self):
-        if not torch.cuda.is_available():
-            pytest.skip("CUDA required")
         collector = AllocationCollector()
-        t = torch.randn(1024, device="cuda")
+        
+        # Trigger synthetic deltas mathematically modeled by the mock fixture
         collector.record()
-        assert collector.event_count >= 0  # May or may not detect change depending on timing
+        collector.record()
+        
+        # Validate that the telemetry daemon successfully traced the metrics
+        assert collector.event_count == 2
 
     def test_to_dataframe(self):
         collector = AllocationCollector()

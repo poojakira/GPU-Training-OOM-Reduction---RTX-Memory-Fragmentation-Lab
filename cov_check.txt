@@ -1,0 +1,178 @@
+﻿============================= test session starts =============================
+collected 267 items
+
+tests\test_100pct_coverage.py ..........F.........F........FF........F.. [ 15%]
+.......                                                                  [ 18%]
+tests\test_allocator_logger_final.py .......                             [ 20%]
+tests\test_api.py ..                                                     [ 21%]
+tests\test_api_hardened.py .....                                         [ 23%]
+tests\test_api_hardened_expansion.py .........                           [ 26%]
+tests\test_auto_instrument.py ..                                         [ 27%]
+tests\test_callback_hardened.py ...                                      [ 28%]
+tests\test_cli.py ...                                                    [ 29%]
+tests\test_cli_coverage.py .........                                     [ 33%]
+tests\test_cli_deep.py .......                                           [ 35%]
+tests\test_cli_full.py ........                                          [ 38%]
+tests\test_cli_hardened.py .....                                         [ 40%]
+tests\test_collector.py .....                                            [ 42%]
+tests\test_collector_hardened.py .....                                   [ 44%]
+tests\test_compactor.py ...                                              [ 45%]
+tests\test_compactor_hardened.py ...                                     [ 46%]
+tests\test_coverage_final.py ......                                      [ 49%]
+tests\test_dashboard_hardened.py ....                                    [ 50%]
+tests\test_dashboard_manager.py ...                                      [ 51%]
+tests\test_dataset.py .                                                  [ 52%]
+tests\test_dataset_final.py ...                                          [ 53%]
+tests\test_ddp_hardened.py ...                                           [ 54%]
+tests\test_defragmenter.py ..                                            [ 55%]
+tests\test_defragmenter_final.py .....                                   [ 56%]
+tests\test_defragmenter_mocked.py ....                                   [ 58%]
+tests\test_hook.py ......                                                [ 60%]
+tests\test_kernels.py ...                                                [ 61%]
+tests\test_kernels_body.py ...                                           [ 62%]
+tests\test_kv_cache.py .                                                 [ 63%]
+tests\test_kv_cache_final.py ......                                      [ 65%]
+tests\test_logger.py .........                                           [ 68%]
+tests\test_models.py ....                                                [ 70%]
+tests\test_monitor.py ...                                                [ 71%]
+tests\test_monitor_deep.py .......                                       [ 74%]
+tests\test_monitor_final.py .....                                        [ 76%]
+tests\test_monitor_hardened.py ....                                      [ 77%]
+tests\test_policy.py ....                                                [ 79%]
+tests\test_policy_final.py ....                                          [ 80%]
+tests\test_predictor.py ......                                           [ 82%]
+tests\test_quantization.py ..                                            [ 83%]
+tests\test_risk_model.py ..........                                      [ 87%]
+tests\test_simulator.py .....................                            [ 95%]
+tests\test_trainer_hardened.py .....                                     [ 97%]
+tests\test_utils_hardened.py ........                                    [100%]
+
+================================== FAILURES ===================================
+_____ TestBenchmarkTritonCoverage.test_benchmark_triton_equivalent_branch _____
+tests\test_100pct_coverage.py:208: in test_benchmark_triton_equivalent_branch
+    patch.object(benchmark_triton, "triton_compaction_copy"), \
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:1467: in __enter__
+    original, local = self.get_original()
+                      ^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:1437: in get_original
+    raise AttributeError(
+E   AttributeError: <module 'gpudefrag.defrag_engine.benchmark_triton' from 'C:\\Users\\pooja\\Downloads\\Predictive-GPU-Memory-Defragmenter-main (1)\\Predictive-GPU-Memory-Defragmenter-main\\gpudefrag\\defrag_engine\\benchmark_triton.py'> does not have the attribute 'triton_compaction_copy'
+____________ TestKernelsCoverage.test_analyze_fragmentation_empty _____________
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:1581: in __enter__
+    setattr(self.target, self.attribute, new_attr)
+E   AttributeError: attribute 'is_cuda' of 'torch._C.TensorBase' objects is not writable
+
+During handling of the above exception, another exception occurred:
+tests\test_100pct_coverage.py:333: in test_analyze_fragmentation_empty
+    with patch.object(empty, "is_cuda", True):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:1594: in __enter__
+    if not self.__exit__(*sys.exc_info()):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py:1605: in __exit__
+    delattr(self.target, self.attribute)
+E   AttributeError: attribute 'is_cuda' of 'torch._C.TensorBase' objects is not writable
+___________ TestCollectorCoverage.test_collect_from_model_resnet50 ____________
+tests\test_100pct_coverage.py:460: in test_collect_from_model_resnet50
+    count = collect_from_model("resnet50", iterations=1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+gpudefrag\profiler\collector.py:179: in collect_from_model
+    torch.cuda.synchronize()
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\cuda\__init__.py:1106: in synchronize
+    _lazy_init()
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\cuda\__init__.py:417: in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+E   AssertionError: Torch not compiled with CUDA enabled
+---------------------------- Captured stderr call -----------------------------
+[16:47:02] gpudefrag.collector INFO: Collecting traces for resnet50 (1 iterations)...
+------------------------------ Captured log call ------------------------------
+INFO     gpudefrag.collector:collector.py:153 Collecting traces for resnet50 (1 iterations)...
+_____________ TestCollectorCoverage.test_collect_from_model_bert ______________
+tests\test_100pct_coverage.py:477: in test_collect_from_model_bert
+    count = collect_from_model("bert", iterations=1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+gpudefrag\profiler\collector.py:179: in collect_from_model
+    torch.cuda.synchronize()
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\cuda\__init__.py:1106: in synchronize
+    _lazy_init()
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\cuda\__init__.py:417: in _lazy_init
+    raise AssertionError("Torch not compiled with CUDA enabled")
+E   AssertionError: Torch not compiled with CUDA enabled
+---------------------------- Captured stderr call -----------------------------
+[16:47:04] gpudefrag.collector INFO: Collecting traces for bert (1 iterations)...
+------------------------------ Captured log call ------------------------------
+INFO     gpudefrag.collector:collector.py:153 Collecting traces for bert (1 iterations)...
+_____ TestAutoInstrumentCoverage.test_auto_instrument_heartbeat_exception _____
+tests\test_100pct_coverage.py:656: in test_auto_instrument_heartbeat_exception
+    wrapped_model, wrapped_opt = auto_instrument(model, optimizer)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+gpudefrag\trainer\auto_instrument.py:147: in auto_instrument
+    ddp_manager = DDPSyncManager()
+                  ^^^^^^^^^^^^^^^^
+gpudefrag\trainer\ddp.py:26: in __init__
+    self.start_event = torch.cuda.Event(enable_timing=True)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\cuda\streams.py:184: in __new__
+    return super().__new__(
+..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\_utils.py:1002: in err_fn
+    raise RuntimeError(f"Tried to instantiate dummy base class {class_name}")
+E   RuntimeError: Tried to instantiate dummy base class Event
+------------------------------ Captured log call ------------------------------
+WARNING  gpudefrag.defragmenter:defragmenter.py:62 Triton warmup failed: Torch not compiled with CUDA enabled
+============================== warnings summary ===============================
+tests/test_100pct_coverage.py::TestTrainerCoverage::test_trainer_verbose_and_best_save
+tests/test_trainer_hardened.py::test_trainer_loop_mocked
+  C:\Users\pooja\AppData\Local\Programs\Python\Python312\Lib\site-packages\torch\utils\data\dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+    super().__init__(loader)
+
+tests/test_models.py::test_build_bert
+  C:\Users\pooja\Downloads\Predictive-GPU-Memory-Defragmenter-main (1)\Predictive-GPU-Memory-Defragmenter-main\gpudefrag\trainer\_models.py:73: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+    model = nn.TransformerEncoder(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.12.9-final-0 _______________
+
+Name                                          Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------------
+gpudefrag\__init__.py                            14      0   100%
+gpudefrag\api.py                                 99      0   100%
+gpudefrag\cli.py                                204      5    98%   32-34, 292, 350
+gpudefrag\dashboard.py                           85      1    99%   121
+gpudefrag\defrag_engine\__init__.py               4      0   100%
+gpudefrag\defrag_engine\benchmark_triton.py      50      4    92%   26-27, 77, 86
+gpudefrag\defrag_engine\compactor.py             40      0   100%
+gpudefrag\defrag_engine\defragmenter.py         140      9    94%   25-28, 59-60, 93, 110, 119
+gpudefrag\defrag_engine\kernels.py               59      3    95%   12-13, 134
+gpudefrag\defrag_engine\policy.py                73      0   100%
+gpudefrag\llm_system\__init__.py                  0      0   100%
+gpudefrag\llm_system\kv_cache_manager.py         51      0   100%
+gpudefrag\optimization\__init__.py                0      0   100%
+gpudefrag\optimization\quantization.py           19      0   100%
+gpudefrag\profiler\__init__.py                    3      0   100%
+gpudefrag\profiler\allocator_logger.py           85      0   100%
+gpudefrag\profiler\collector.py                 114      0   100%
+gpudefrag\scheduler\__init__.py                   4      0   100%
+gpudefrag\scheduler\dataset.py                   64      0   100%
+gpudefrag\scheduler\monitor.py                  130      3    98%   176, 191, 199
+gpudefrag\scheduler\predictor.py                 46      0   100%
+gpudefrag\scheduler\risk_model.py                54      0   100%
+gpudefrag\trainer\__init__.py                     5      0   100%
+gpudefrag\trainer\_models.py                     35      1    97%   56
+gpudefrag\trainer\auto_instrument.py             73      3    96%   153-155
+gpudefrag\trainer\callback.py                    34      0   100%
+gpudefrag\trainer\ddp.py                         36      2    94%   62, 82
+gpudefrag\trainer\trainer.py                     77      0   100%
+gpudefrag\trainer\training_hook.py               56      1    98%   196
+gpudefrag\utils.py                              114      1    99%   188
+---------------------------------------------------------------------------
+TOTAL                                          1768     33    98%
+Required test coverage of 95% reached. Total coverage: 98.13%
+=========================== short test summary info ===========================
+FAILED tests/test_100pct_coverage.py::TestBenchmarkTritonCoverage::test_benchmark_triton_equivalent_branch
+FAILED tests/test_100pct_coverage.py::TestKernelsCoverage::test_analyze_fragmentation_empty
+FAILED tests/test_100pct_coverage.py::TestCollectorCoverage::test_collect_from_model_resnet50
+FAILED tests/test_100pct_coverage.py::TestCollectorCoverage::test_collect_from_model_bert
+FAILED tests/test_100pct_coverage.py::TestAutoInstrumentCoverage::test_auto_instrument_heartbeat_exception
+================= 5 failed, 262 passed, 3 warnings in 19.96s ==================

@@ -27,7 +27,7 @@ import sys
 import time
 from dataclasses import dataclass, asdict
 from pathlib import Path
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -481,7 +481,7 @@ def main():
         json.dump(manifest, f, indent=2)
 
     print(f"\n{'='*60}")
-    print(f"Real data collection complete")
+    print("Real data collection complete")
     print(f"  Total events:  {grand_total:,}")
     print(f"  Models:        {', '.join(args.models)}")
     print(f"  Device:        {DEVICE} ({GPU_NAME})")

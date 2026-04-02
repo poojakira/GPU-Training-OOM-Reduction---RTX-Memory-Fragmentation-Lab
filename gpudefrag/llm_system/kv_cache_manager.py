@@ -10,7 +10,7 @@ This module integrates predictive defragmentation directly into the KV cache mem
 
 import torch
 from gpudefrag.utils import get_logger
-from typing import Dict, List, Set, Any
+from typing import Dict, List, Any
 
 log = get_logger("kv_cache")
 
@@ -86,10 +86,34 @@ class PagedKVCacheAdapter:
         self.free_physical_blocks = list(range(len(self.free_physical_blocks)))
         self.logical_to_physical.clear() # Cache invalidated for example
 
+    def sync_with_defragmenter(self, defragmenter: Any):
+        """
+        Hook to allow the KV Cache adapter to report its state directly to the 
+        global defragmenter telemetry pipe.
+        """
+        meta = self.get_metadata()
+        if hasattr(defragmenter, "_history"):
+            defragmenter._history.append({
+                "timestamp": torch.cuda.Event(enable_timing=True).record() if torch.cuda.is_available() else 0,
+                "reason": "kv_cache_sync",
+                "kv_fragmentation": meta["fragmentation_score"],
+                "kv_allocated_blocks": meta["allocated_blocks"]
+            })
+
     def get_metadata(self) -> Dict[str, Any]:
+        """
+        Returns block-level metadata formatted for the AeroGrid 
+        VRAM Topology hex-map visualization.
+        """
+        allocated_ids = []
+        for ids in self.logical_to_physical.values():
+            allocated_ids.extend(ids)
+
         return {
             "total_blocks": self.num_blocks,
             "free_blocks": len(self.free_physical_blocks),
             "allocated_blocks": self.num_blocks - len(self.free_physical_blocks),
-            "fragmentation_score": round(self.get_fragmentation_score(), 4)
+            "fragmentation_score": round(self.get_fragmentation_score(), 4),
+            "block_size_tokens": self.block_size,
+            "physical_block_map": [1 if i in allocated_ids else 0 for i in range(self.num_blocks)]
         }

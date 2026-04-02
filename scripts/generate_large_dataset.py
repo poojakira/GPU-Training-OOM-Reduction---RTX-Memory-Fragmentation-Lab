@@ -34,7 +34,6 @@ from scripts.workload_simulator import (
     GPUWorkload,
     TransformerSpec,
     CNNSpec,
-    TraceEvent,
 )
 
 
@@ -66,7 +65,6 @@ def _run_streamed(
     )
 
     # Override run() to do chunked writes
-    import math
     import random
     rng = np.random.RandomState(seed)
     random.seed(seed)

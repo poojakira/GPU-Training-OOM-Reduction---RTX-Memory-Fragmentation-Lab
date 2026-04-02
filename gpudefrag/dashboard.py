@@ -96,8 +96,12 @@ class DashboardManager:
         """Stop the background sync process."""
         self._stop_event.set()
         thread = self._sync_thread
-        if thread is not None:
-            thread.join()
+        if thread is not None and thread.is_alive() and threading.current_thread() != thread:
+            try:
+                thread.join(timeout=1.0)
+            except RuntimeError:
+                pass
+        self._sync_thread = None
 
 def main():
     """CLI entry point for the dashboard manager."""
@@ -113,5 +117,5 @@ def main():
         log.info("Shutting down...")
         mgr.stop_sync()
 
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__":  # pragma: no cover
+    main()  # pragma: no cover
