@@ -35,6 +35,7 @@ class MitigationAction:
     risk_score: float
     tier: str                     # SAFE / WARN / ACT
     message: str
+    mode: str = "PREDICTIVE"       # PREDICTIVE / REACTIVE
     cache_cleared: bool = False
     suggested_batch_size: Optional[int] = None
 
@@ -75,6 +76,7 @@ class MitigationPolicy:
         current_batch_size: int = 0,
         tensors_to_defragment: Optional[Iterable[Any]] = None,
         force_act: bool = False,
+        mode: str = "PREDICTIVE",
     ) -> MitigationAction:
         """
         Evaluate the policy for a given risk score.
@@ -110,6 +112,7 @@ class MitigationPolicy:
                 risk_score=risk_score,
                 tier="ACT" if not force_act else "PEER_ACT",
                 message=msg,
+                mode=mode,
                 cache_cleared=cache_cleared,
                 suggested_batch_size=suggested_bs,
             )
