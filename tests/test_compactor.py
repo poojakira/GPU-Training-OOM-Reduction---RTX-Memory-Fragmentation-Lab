@@ -2,7 +2,7 @@
 
 import torch
 
-from gpudefrag.defrag_engine.compactor import MemoryCompactor
+from apex_aegis.defrag_engine.compactor import MemoryCompactor
 
 
 class TestMemoryCompactor:

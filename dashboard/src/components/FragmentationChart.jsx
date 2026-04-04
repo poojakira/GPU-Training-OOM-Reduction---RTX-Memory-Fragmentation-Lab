@@ -38,7 +38,7 @@ export const FragmentationChart = ({ data, timeline }) => {
         />
         <Line 
           type="stepAfter" 
-          name="gpudefrag" 
+          name="apex_aegis" 
           dataKey="defragFrag" 
           stroke="#00ff88" 
           strokeWidth={2}

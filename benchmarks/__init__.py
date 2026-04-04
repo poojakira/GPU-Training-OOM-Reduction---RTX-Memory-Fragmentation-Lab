@@ -1,3 +1,3 @@
 """
-gpudefrag benchmarks — Performance evaluation suite.
+apex_aegis benchmarks — Performance evaluation suite.
 """

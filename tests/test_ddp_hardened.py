@@ -1,5 +1,5 @@
 from unittest.mock import MagicMock, patch
-from gpudefrag.trainer.ddp import DDPSyncManager
+from apex_aegis.trainer.ddp import DDPSyncManager
 
 def test_ddp_manager_uninitialized():
     """Verify DDP manager behavior when distributed is not initialized."""

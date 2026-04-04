@@ -5,9 +5,9 @@ tests/test_hook.py — Prove the TrainingHook actually runs.
 import torch
 import torch.nn as nn
 
-from gpudefrag.trainer.training_hook import TrainingHook
-from gpudefrag.profiler.allocator_logger import AllocatorLogger
-from gpudefrag.scheduler.risk_model import OOMRiskModel
+from apex_aegis.trainer.training_hook import TrainingHook
+from apex_aegis.profiler.allocator_logger import AllocatorLogger
+from apex_aegis.scheduler.risk_model import OOMRiskModel
 
 
 class TestTrainingHook:

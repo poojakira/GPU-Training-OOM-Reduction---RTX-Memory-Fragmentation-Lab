@@ -1,5 +1,5 @@
 import pandas as pd
-from gpudefrag.scheduler.dataset import AllocationDataset
+from apex_aegis.scheduler.dataset import AllocationDataset
 
 def test_allocation_dataset(tmp_path):
     trace_dir = tmp_path / "traces"

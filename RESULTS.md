@@ -12,7 +12,7 @@
 
 ### Comparison Table
 
-| Metric | Baseline (No Defrag) | With gpudefrag (v2.0.0) | Improvement |
+| Metric | Baseline (No Defrag) | With apex_aegis (v2.0.0) | Improvement |
 |---|---|---|---|
 | **OOM Errors** | 0–3 per run | 0 | ✅ **100% eliminated** |
 | **Training Restarts** | 2–5 | 0 | ✅ **Eliminated** |

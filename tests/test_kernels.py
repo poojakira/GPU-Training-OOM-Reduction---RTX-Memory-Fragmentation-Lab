@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, patch
 
 # We mock triton before importing the kernels
 with patch.dict("sys.modules", {"triton": MagicMock(), "triton.language": MagicMock()}):
-    from gpudefrag.defrag_engine.kernels import triton_compaction_copy, analyze_fragmentation_triton
+    from apex_aegis.defrag_engine.kernels import triton_compaction_copy, analyze_fragmentation_triton
 
 def test_triton_compaction_copy_mocked():
     """Verify Triton compaction copy wrapper logic."""
@@ -15,7 +15,7 @@ def test_triton_compaction_copy_mocked():
     # We need to mock is_cuda to True for the tensors
     with patch.object(torch.Tensor, 'is_cuda', True):
         # Even on CPU, we can test the wrapper logic if we mock the kernel call
-        with patch("gpudefrag.defrag_engine.kernels._compaction_copy_kernel") as mock_kernel:
+        with patch("apex_aegis.defrag_engine.kernels._compaction_copy_kernel") as mock_kernel:
             res = triton_compaction_copy(src, dst)
             assert res is dst
             # The kernel is called as mock_kernel[grid](...)
@@ -27,7 +27,7 @@ def test_analyze_fragmentation_triton_mocked():
     
     with patch.object(torch.Tensor, 'is_cuda', True), \
          patch.object(torch.Tensor, 'cuda', return_value=block_sizes), \
-         patch("gpudefrag.defrag_engine.kernels._fragmentation_scan_kernel") as mock_kernel, \
+         patch("apex_aegis.defrag_engine.kernels._fragmentation_scan_kernel") as mock_kernel, \
          patch.object(torch.Tensor, 'mean', return_value=torch.tensor(0.5)):
         
         score = analyze_fragmentation_triton(block_sizes)

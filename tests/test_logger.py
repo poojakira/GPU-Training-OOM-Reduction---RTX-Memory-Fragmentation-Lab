@@ -6,7 +6,7 @@ import json
 import csv
 from pathlib import Path
 
-from gpudefrag.profiler.allocator_logger import AllocatorLogger, StepRecord
+from apex_aegis.profiler.allocator_logger import AllocatorLogger, StepRecord
 
 
 class TestAllocatorLogger:

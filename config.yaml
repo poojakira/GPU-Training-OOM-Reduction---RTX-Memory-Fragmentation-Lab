@@ -1,5 +1,5 @@
 # =============================================================================
-# gpudefrag Configuration
+# apex_aegis Configuration
 # =============================================================================
 # This file controls all tunable parameters for the defragmentation system.
 # Load via: python run.py --config config.yaml

@@ -13,9 +13,9 @@ import mlflow  # type: ignore
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from gpudefrag.trainer._models import SimpleGPT2  # type: ignore
-from gpudefrag.trainer.callback import DefragCallback  # type: ignore
-from gpudefrag.utils import get_logger, ensure_cuda  # type: ignore
+from apex_aegis.trainer._models import SimpleGPT2  # type: ignore
+from apex_aegis.trainer.callback import DefragCallback  # type: ignore
+from apex_aegis.utils import get_logger, ensure_cuda  # type: ignore
 
 log = get_logger("benchmark.defrag")
 
@@ -107,7 +107,7 @@ def run_benchmark_with_defrag(iterations: int = 100, batch_size: int = 8, seq_le
 
     stats = {
         "timestamp": datetime.now().isoformat(),
-        "system": "gpudefrag",
+        "system": "apex_aegis",
         "oom_errors": oom_errors,
         "restarts": 0,
         "iteration_times": iteration_times,

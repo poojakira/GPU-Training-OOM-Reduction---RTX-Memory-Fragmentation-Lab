@@ -1,5 +1,5 @@
 import torch
-from gpudefrag.defrag_engine.defragmenter import GPUMemoryDefragmenter
+from apex_aegis.defrag_engine.defragmenter import GPUMemoryDefragmenter
 
 def test_defragmenter_repack_numerical_parity():
     """

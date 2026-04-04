@@ -47,7 +47,7 @@ tests\test_utils_hardened.py ........                                    [100%]
 
 ============================== warnings summary ===============================
 tests/test_models.py::test_build_bert
-  C:\Users\pooja\Downloads\Predictive-GPU-Memory-Defragmenter-main (1)\Predictive-GPU-Memory-Defragmenter-main\gpudefrag\trainer\_models.py:73: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  C:\Users\pooja\Downloads\Predictive-GPU-Memory-Defragmenter-main (1)\Predictive-GPU-Memory-Defragmenter-main\apex_aegis\trainer\_models.py:73: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
     model = nn.TransformerEncoder(
 
 tests/test_trainer_hardened.py::test_trainer_loop_mocked
@@ -60,36 +60,36 @@ _______________ coverage: platform win32, python 3.12.9-final-0 _______________
 
 Name                                          Stmts   Miss  Cover   Missing
 ---------------------------------------------------------------------------
-gpudefrag\__init__.py                            14      0   100%
-gpudefrag\api.py                                 99      0   100%
-gpudefrag\cli.py                                204      7    97%   32-34, 85-86, 292, 350
-gpudefrag\dashboard.py                           85      9    89%   48-49, 55-58, 65-66, 121
-gpudefrag\defrag_engine\__init__.py               4      0   100%
-gpudefrag\defrag_engine\benchmark_triton.py      50      6    88%   26-27, 34-35, 77, 86
-gpudefrag\defrag_engine\compactor.py             40      0   100%
-gpudefrag\defrag_engine\defragmenter.py         140     14    90%   25-28, 59-60, 93, 110, 119, 218, 261-262, 266-267
-gpudefrag\defrag_engine\kernels.py               59      5    92%   12-13, 77, 130, 134
-gpudefrag\defrag_engine\policy.py                73      5    93%   42, 152-153, 181-182
-gpudefrag\llm_system\__init__.py                  0      0   100%
-gpudefrag\llm_system\kv_cache_manager.py         51      0   100%
-gpudefrag\optimization\__init__.py                0      0   100%
-gpudefrag\optimization\quantization.py           19      3    84%   30-31, 40
-gpudefrag\profiler\__init__.py                    3      0   100%
-gpudefrag\profiler\allocator_logger.py           85      2    98%   43-44
-gpudefrag\profiler\collector.py                 114      6    95%   52, 160-161, 163-164, 197
-gpudefrag\scheduler\__init__.py                   4      0   100%
-gpudefrag\scheduler\dataset.py                   64      1    98%   106
-gpudefrag\scheduler\monitor.py                  130     11    92%   110-113, 176, 188-191, 199, 224
-gpudefrag\scheduler\predictor.py                 46      0   100%
-gpudefrag\scheduler\risk_model.py                54      0   100%
-gpudefrag\trainer\__init__.py                     5      0   100%
-gpudefrag\trainer\_models.py                     35      1    97%   56
-gpudefrag\trainer\auto_instrument.py             73      7    90%   58-61, 153-155
-gpudefrag\trainer\callback.py                    34      0   100%
-gpudefrag\trainer\ddp.py                         36      2    94%   62, 82
-gpudefrag\trainer\trainer.py                     77      2    97%   80, 89
-gpudefrag\trainer\training_hook.py               56      3    95%   196-198
-gpudefrag\utils.py                              114      6    95%   143-144, 163, 167-168, 188
+apex_aegis\__init__.py                            14      0   100%
+apex_aegis\api.py                                 99      0   100%
+apex_aegis\cli.py                                204      7    97%   32-34, 85-86, 292, 350
+apex_aegis\dashboard.py                           85      9    89%   48-49, 55-58, 65-66, 121
+apex_aegis\defrag_engine\__init__.py               4      0   100%
+apex_aegis\defrag_engine\benchmark_triton.py      50      6    88%   26-27, 34-35, 77, 86
+apex_aegis\defrag_engine\compactor.py             40      0   100%
+apex_aegis\defrag_engine\defragmenter.py         140     14    90%   25-28, 59-60, 93, 110, 119, 218, 261-262, 266-267
+apex_aegis\defrag_engine\kernels.py               59      5    92%   12-13, 77, 130, 134
+apex_aegis\defrag_engine\policy.py                73      5    93%   42, 152-153, 181-182
+apex_aegis\llm_system\__init__.py                  0      0   100%
+apex_aegis\llm_system\kv_cache_manager.py         51      0   100%
+apex_aegis\optimization\__init__.py                0      0   100%
+apex_aegis\optimization\quantization.py           19      3    84%   30-31, 40
+apex_aegis\profiler\__init__.py                    3      0   100%
+apex_aegis\profiler\allocator_logger.py           85      2    98%   43-44
+apex_aegis\profiler\collector.py                 114      6    95%   52, 160-161, 163-164, 197
+apex_aegis\scheduler\__init__.py                   4      0   100%
+apex_aegis\scheduler\dataset.py                   64      1    98%   106
+apex_aegis\scheduler\monitor.py                  130     11    92%   110-113, 176, 188-191, 199, 224
+apex_aegis\scheduler\predictor.py                 46      0   100%
+apex_aegis\scheduler\risk_model.py                54      0   100%
+apex_aegis\trainer\__init__.py                     5      0   100%
+apex_aegis\trainer\_models.py                     35      1    97%   56
+apex_aegis\trainer\auto_instrument.py             73      7    90%   58-61, 153-155
+apex_aegis\trainer\callback.py                    34      0   100%
+apex_aegis\trainer\ddp.py                         36      2    94%   62, 82
+apex_aegis\trainer\trainer.py                     77      2    97%   80, 89
+apex_aegis\trainer\training_hook.py               56      3    95%   196-198
+apex_aegis\utils.py                              114      6    95%   143-144, 163, 167-168, 188
 ---------------------------------------------------------------------------
 TOTAL                                          1768     90    95%
 FAIL Required test coverage of 95% not reached. Total coverage: 94.91%

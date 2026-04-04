@@ -1,12 +1,12 @@
 from fastapi.testclient import TestClient
-from gpudefrag.api import app
+from apex_aegis.api import app
 
 client = TestClient(app)
 
 def test_read_root():
     response = client.get("/api/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok", "service": "gpudefrag-api"}
+    assert response.json() == {"status": "ok", "service": "apex_aegis-api"}
 
 def test_get_telemetry():
     response = client.get("/api/memory")

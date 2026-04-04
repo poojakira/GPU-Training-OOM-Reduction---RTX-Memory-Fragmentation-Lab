@@ -47,7 +47,7 @@ export const IterationTimeChart = ({ data }) => {
         />
         <Area 
           type="monotone" 
-          name="gpudefrag" 
+          name="apex_aegis" 
           dataKey="defragTime" 
           stroke="#3377ff" 
           strokeWidth={2}

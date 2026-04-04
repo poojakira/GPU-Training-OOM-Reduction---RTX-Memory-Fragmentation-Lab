@@ -5,7 +5,7 @@ tests/test_risk_model.py — Prove the OOMRiskModel actually runs.
 import pytest
 import numpy as np
 
-from gpudefrag.scheduler.risk_model import OOMRiskModel, RiskThresholds
+from apex_aegis.scheduler.risk_model import OOMRiskModel, RiskThresholds
 
 
 class TestRuleBasedScorer:

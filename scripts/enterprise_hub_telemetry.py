@@ -3,7 +3,7 @@ import time
 import math
 import random
 from pathlib import Path
-from gpudefrag.utils import get_logger
+from apex_aegis.utils import get_logger
 
 log = get_logger("enterprise-sim")
 

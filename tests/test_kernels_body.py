@@ -2,8 +2,8 @@ from unittest.mock import patch
 
 def test_triton_compaction_kernel_body():
     """Verify triton compaction kernel source lines."""
-    with patch("gpudefrag.defrag_engine.kernels.tl") as mock_tl:
-        from gpudefrag.defrag_engine.kernels import _compaction_copy_kernel
+    with patch("apex_aegis.defrag_engine.kernels.tl") as mock_tl:
+        from apex_aegis.defrag_engine.kernels import _compaction_copy_kernel
         
         # Setup numeric-friendly mocks
         mock_tl.program_id.return_value = 0
@@ -21,8 +21,8 @@ def test_triton_compaction_kernel_body():
 
 def test_fragmentation_scan_kernel_body():
     """Verify fragmentation scan kernel source lines."""
-    with patch("gpudefrag.defrag_engine.kernels.tl") as mock_tl:
-        from gpudefrag.defrag_engine.kernels import _fragmentation_scan_kernel
+    with patch("apex_aegis.defrag_engine.kernels.tl") as mock_tl:
+        from apex_aegis.defrag_engine.kernels import _fragmentation_scan_kernel
         
         mock_tl.program_id.return_value = 0
         mock_tl.arange.return_value = 0
@@ -40,7 +40,7 @@ def test_fragmentation_scan_kernel_body():
 
 def test_kernels_available_branch():
     """Verify the available check in kernels.py."""
-    from gpudefrag.defrag_engine import kernels
+    from apex_aegis.defrag_engine import kernels
     with patch("torch.cuda.is_available", return_value=True):
         # This exercises the line that checks for cuda
         assert kernels.triton_compaction_copy is not None

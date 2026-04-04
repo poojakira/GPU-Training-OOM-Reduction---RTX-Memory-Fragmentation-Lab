@@ -29,9 +29,9 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader, random_split
 
-from gpudefrag.scheduler.predictor import FragPredictor
-from gpudefrag.scheduler.dataset import AllocationDataset
-from gpudefrag.utils import get_logger, DefragConfig
+from apex_aegis.scheduler.predictor import FragPredictor
+from apex_aegis.scheduler.dataset import AllocationDataset
+from apex_aegis.utils import get_logger, DefragConfig
 
 log = get_logger("senior-trainer")
 

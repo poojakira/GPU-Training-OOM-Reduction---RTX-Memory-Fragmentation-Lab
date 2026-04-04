@@ -3,8 +3,8 @@
 import torch
 import pytest
 
-from gpudefrag.profiler.collector import AllocationCollector
-from gpudefrag.utils import DefragConfig
+from apex_aegis.profiler.collector import AllocationCollector
+from apex_aegis.utils import DefragConfig
 
 
 class TestAllocationCollector:

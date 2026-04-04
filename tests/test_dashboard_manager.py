@@ -1,5 +1,5 @@
 from unittest.mock import patch, MagicMock
-from gpudefrag.dashboard import DashboardManager
+from apex_aegis.dashboard import DashboardManager
 
 def test_dashboard_manager_ensure_dirs(tmp_path):
     """Verify directory creation is handled correctly."""

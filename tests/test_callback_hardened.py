@@ -1,11 +1,11 @@
 from unittest.mock import patch
-from gpudefrag.trainer.callback import DefragCallback
-from gpudefrag.utils import DefragConfig
+from apex_aegis.trainer.callback import DefragCallback
+from apex_aegis.utils import DefragConfig
 
 def test_callback_lifecycle():
     """Verify callback lifecycle methods call monitor."""
-    with patch("gpudefrag.trainer.callback.DefragMonitor") as mock_monitor_cls, \
-         patch("gpudefrag.trainer.callback.DDPSyncManager") as mock_ddp_cls:
+    with patch("apex_aegis.trainer.callback.DefragMonitor") as mock_monitor_cls, \
+         patch("apex_aegis.trainer.callback.DDPSyncManager") as mock_ddp_cls:
         
         mock_monitor = mock_monitor_cls.return_value
         mock_monitor.last_predicted_score = 0.8
@@ -30,8 +30,8 @@ def test_callback_lifecycle():
 def test_callback_ddp_sync_trigger():
     """Verify callback triggers compaction when DDP sync is enabled."""
     config = DefragConfig(ddp_sync=True)
-    with patch("gpudefrag.trainer.callback.DefragMonitor") as mock_monitor_cls, \
-         patch("gpudefrag.trainer.callback.DDPSyncManager") as mock_ddp_cls:
+    with patch("apex_aegis.trainer.callback.DefragMonitor") as mock_monitor_cls, \
+         patch("apex_aegis.trainer.callback.DDPSyncManager") as mock_ddp_cls:
         
         mock_monitor = mock_monitor_cls.return_value
         mock_monitor.config = config
@@ -50,8 +50,8 @@ def test_callback_ddp_sync_trigger():
 
 def test_callback_stats():
     """Verify callback stats aggregation."""
-    with patch("gpudefrag.trainer.callback.DefragMonitor") as mock_monitor_cls, \
-         patch("gpudefrag.trainer.callback.DDPSyncManager") as mock_ddp_cls:
+    with patch("apex_aegis.trainer.callback.DefragMonitor") as mock_monitor_cls, \
+         patch("apex_aegis.trainer.callback.DDPSyncManager") as mock_ddp_cls:
         
         mock_monitor = mock_monitor_cls.return_value
         mock_monitor.stats.return_value = {"total_compactions": 5}

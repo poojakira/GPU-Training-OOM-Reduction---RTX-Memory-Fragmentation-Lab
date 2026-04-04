@@ -2,8 +2,8 @@
 
 import torch
 
-from gpudefrag.scheduler.predictor import FragPredictor
-from gpudefrag.utils import DefragConfig
+from apex_aegis.scheduler.predictor import FragPredictor
+from apex_aegis.utils import DefragConfig
 
 
 class TestFragPredictor:

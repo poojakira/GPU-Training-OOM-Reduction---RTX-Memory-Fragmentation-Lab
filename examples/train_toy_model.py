@@ -21,10 +21,10 @@ sys.path.insert(0, str(ROOT))
 import torch
 import torch.nn as nn
 
-from gpudefrag.profiler.allocator_logger import AllocatorLogger
-from gpudefrag.scheduler.risk_model import OOMRiskModel
-from gpudefrag.trainer.training_hook import TrainingHook
-from gpudefrag.defrag_engine.policy import MitigationPolicy
+from apex_aegis.profiler.allocator_logger import AllocatorLogger
+from apex_aegis.scheduler.risk_model import OOMRiskModel
+from apex_aegis.trainer.training_hook import TrainingHook
+from apex_aegis.defrag_engine.policy import MitigationPolicy
 
 
 def main():
@@ -43,7 +43,7 @@ def main():
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     criterion = nn.CrossEntropyLoss()
 
-    # -- Wire up gpudefrag src modules -------------------------------------
+    # -- Wire up apex_aegis src modules -------------------------------------
     logger = AllocatorLogger()
     risk_model = OOMRiskModel(mode="rule")
     policy = MitigationPolicy(warn_threshold=0.5, act_threshold=0.8)

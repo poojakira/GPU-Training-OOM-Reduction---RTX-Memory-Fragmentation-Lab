@@ -2,7 +2,7 @@
 
 import time
 
-from gpudefrag.scheduler.monitor import DefragMonitor
+from apex_aegis.scheduler.monitor import DefragMonitor
 
 
 class TestDefragMonitor:

@@ -1,4 +1,4 @@
-from gpudefrag.defrag_engine.policy import MitigationPolicy
+from apex_aegis.defrag_engine.policy import MitigationPolicy
 
 def test_policy_safe_threshold():
     policy = MitigationPolicy(warn_threshold=0.5, act_threshold=0.8)

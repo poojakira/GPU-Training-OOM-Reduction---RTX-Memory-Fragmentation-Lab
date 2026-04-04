@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from gpudefrag.optimization.quantization import apply_gpu_quantization, get_model_size_mb
+from apex_aegis.optimization.quantization import apply_gpu_quantization, get_model_size_mb
 
 class SimpleLinear(nn.Module):
     def __init__(self):

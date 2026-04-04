@@ -3,16 +3,16 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "gpudefrag"
+name = "apex-aegis"
 version = "2.0.0"
 description = "NVIDIA-Grade Predictive GPU Memory Defragmenter — Transformer-driven proactive CUDA memory infrastructure"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [
-    {name = "GPU Defrag Infrastructure Team"}
+    {name = "Apex-Aegis Infrastructure Team"}
 ]
-keywords = ["gpu", "cuda", "memory", "defragmentation", "pytorch", "transformer"]
+keywords = ["gpu", "cuda", "memory", "defragmentation", "pytorch", "transformer", "observability"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
@@ -33,6 +33,9 @@ dependencies = [
     "fastapi>=0.100.0",
     "uvicorn>=0.23.0",
     "pydantic>=2.0",
+    "structlog>=23.1.0",
+    "prometheus-client>=0.17.0",
+    "mlflow>=2.4.0",
 ]
 
 [project.optional-dependencies]
@@ -41,18 +44,19 @@ models = ["torchvision>=0.15", "transformers>=4.30"]
 profiler = ["torch-tb-profiler>=0.4"]
 triton = ["triton>=2.1.0"]
 rich = ["rich>=13.0"]
-all = ["gpudefrag[dev,models,profiler,triton,rich]"]
+all = ["apex-aegis[dev,models,profiler,triton,rich]"]
 
 [project.scripts]
-gpu-defragger = "gpudefrag.cli:main"
-gpudefrag-collect = "gpudefrag.cli:collect_cmd"
-gpudefrag-train = "gpudefrag.cli:train_cmd"
-gpudefrag-benchmark = "gpudefrag.cli:benchmark_cmd"
-gpudefrag-serve = "gpudefrag.cli:serve_cmd"
-gpudefrag-dashboard = "gpudefrag.cli:dashboard_cmd"
+apex-aegis = "apex_aegis.cli:main"
+apex-collect = "apex_aegis.cli:collect_cmd"
+apex-train = "apex_aegis.cli:train_cmd"
+apex-benchmark = "apex_aegis.cli:benchmark_cmd"
+apex-serve = "apex_aegis.cli:serve_cmd"
+apex-dashboard = "apex_aegis.cli:dashboard_cmd"
 
 [tool.setuptools.packages.find]
-include = ["gpudefrag*"]
+where = ["src"]
+include = ["apex_aegis*"]
 
 [tool.black]
 line-length = 100
@@ -63,4 +67,5 @@ target-version = "py310"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short --cov=gpudefrag --cov-report=term-missing --cov-fail-under=95"
+addopts = "-v --tb=short --cov=apex_aegis --cov-report=term-missing --cov-fail-under=95"
+pythonpath = ["src"]

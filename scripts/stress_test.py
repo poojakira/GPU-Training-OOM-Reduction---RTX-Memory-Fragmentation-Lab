@@ -6,8 +6,8 @@ Creates random allocation patterns and non-linear deallocations to trigger compa
 import time
 import torch  # type: ignore
 import random
-from gpudefrag import DefragMonitor  # type: ignore
-from gpudefrag.utils import DefragConfig, get_logger  # type: ignore
+from apex_aegis import DefragMonitor  # type: ignore
+from apex_aegis.utils import DefragConfig, get_logger  # type: ignore
 
 log = get_logger("stress-test")
 

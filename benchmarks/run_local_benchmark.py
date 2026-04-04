@@ -30,10 +30,10 @@ sys.path.insert(0, str(ROOT))
 
 import numpy as np
 
-from gpudefrag.profiler.allocator_logger import AllocatorLogger
-from gpudefrag.scheduler.risk_model import OOMRiskModel
-from gpudefrag.trainer.training_hook import TrainingHook
-from gpudefrag.defrag_engine.policy import MitigationPolicy
+from apex_aegis.profiler.allocator_logger import AllocatorLogger
+from apex_aegis.scheduler.risk_model import OOMRiskModel
+from apex_aegis.trainer.training_hook import TrainingHook
+from apex_aegis.defrag_engine.policy import MitigationPolicy
 
 # ---------------------------------------------------------------------------
 # Detect GPU
@@ -52,7 +52,7 @@ GPU_NAME = "NVIDIA GeForce RTX 4060" if not HAS_CUDA else (
 
 
 # ---------------------------------------------------------------------------
-# Tiny GPT-2 for the benchmark (reused pattern from gpudefrag._models)
+# Tiny GPT-2 for the benchmark (reused pattern from apex_aegis._models)
 # ---------------------------------------------------------------------------
 
 if HAS_CUDA:
@@ -240,7 +240,7 @@ def _run_cpu_simulated(run_id: int, steps: int, batch_size: int, seq_len: int):
 # ---------------------------------------------------------------------------
 
 def main():
-    ap = argparse.ArgumentParser(description="Local RTX benchmark for gpudefrag")
+    ap = argparse.ArgumentParser(description="Local RTX benchmark for apex_aegis")
     ap.add_argument("--runs", type=int, default=5, help="Number of independent runs")
     ap.add_argument("--steps", type=int, default=100, help="Training steps per run")
     ap.add_argument("--batch-size", type=int, default=6, help="Batch size")
