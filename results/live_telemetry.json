@@ -1,150 +1,17 @@
 {
-  "current_allocated_mb": 2518.6,
-  "current_reserved_mb": 5400.21,
-  "current_frag": 0.5336,
-  "total_compactions": 491,
-  "total_freed_mb": 99670.1,
-  "avg_latency_ms": 11.701,
+  "current_allocated_mb": 0.0,
+  "current_reserved_mb": 0.0,
+  "current_frag": 0.0,
+  "total_compactions": 1,
+  "total_freed_mb": 0.0,
+  "avg_latency_ms": 51.109,
   "compaction_history": [
     {
       "compaction_id": 0,
-      "freed_mb": 101.4669597177559,
-      "fragReduction": 0.24300526229863842,
-      "elapsedMs": 13.024267019259005,
-      "timestamp": "19:05:21"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 151.14519052927866,
-      "fragReduction": 0.12460722036457608,
-      "elapsedMs": 12.12446067282371,
-      "timestamp": "19:05:24"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 225.19840186473527,
-      "fragReduction": 0.18575407662976262,
-      "elapsedMs": 9.664157780059648,
-      "timestamp": "19:05:26"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 190.85044829031017,
-      "fragReduction": 0.22666864094856834,
-      "elapsedMs": 11.139399856441855,
-      "timestamp": "19:05:29"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 121.62828119557345,
-      "fragReduction": 0.23872924754916416,
-      "elapsedMs": 14.968993912014493,
-      "timestamp": "19:05:31"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 185.52112433928846,
-      "fragReduction": 0.13743185546193745,
-      "elapsedMs": 11.322427760821842,
-      "timestamp": "19:05:34"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 145.26176676957888,
-      "fragReduction": 0.09950107645831693,
-      "elapsedMs": 11.895918882633284,
-      "timestamp": "19:05:36"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 156.32824685924012,
-      "fragReduction": 0.10104601180638983,
-      "elapsedMs": 14.5511795100612,
-      "timestamp": "19:05:39"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 138.3932871890699,
-      "fragReduction": 0.22619320155301664,
-      "elapsedMs": 14.014882900963066,
-      "timestamp": "19:05:41"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 200.40858338316946,
-      "fragReduction": 0.10396204320558497,
-      "elapsedMs": 13.262777654567131,
-      "timestamp": "19:05:44"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 284.1577168689388,
-      "fragReduction": 0.17567871472094532,
-      "elapsedMs": 12.924031534137514,
-      "timestamp": "19:05:46"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 182.83653395712912,
-      "fragReduction": 0.2718696922004624,
-      "elapsedMs": 14.48378337369231,
-      "timestamp": "19:05:49"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 283.0167050307963,
-      "fragReduction": 0.13422611266961043,
-      "elapsedMs": 11.494368514201751,
-      "timestamp": "19:05:51"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 107.86078361685259,
-      "fragReduction": 0.09275426563023988,
-      "elapsedMs": 11.451849534536088,
-      "timestamp": "19:05:54"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 113.6597233055143,
-      "fragReduction": 0.10531721823837245,
-      "elapsedMs": 14.291482369419148,
-      "timestamp": "19:05:56"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 198.71672667402495,
-      "fragReduction": 0.17833626214733372,
-      "elapsedMs": 11.856247026084453,
-      "timestamp": "19:05:59"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 275.9061981883477,
-      "fragReduction": 0.11234528950074386,
-      "elapsedMs": 13.737075056223548,
-      "timestamp": "19:06:01"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 258.2808830952408,
-      "fragReduction": 0.2539461065984712,
-      "elapsedMs": 14.441391284061716,
-      "timestamp": "19:06:04"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 221.28148247045743,
-      "fragReduction": 0.15312218575496755,
-      "elapsedMs": 14.065539224825123,
-      "timestamp": "19:06:06"
-    },
-    {
-      "compaction_id": 0,
-      "freed_mb": 185.43495662366558,
-      "fragReduction": 0.12300649592952849,
-      "elapsedMs": 11.946467342514207,
-      "timestamp": "19:06:09"
+      "freed_mb": 0.0,
+      "fragReduction": 0.0,
+      "elapsedMs": 51.10889999195933,
+      "timestamp": "15:13:52"
     }
   ]
 }

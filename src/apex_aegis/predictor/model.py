@@ -35,6 +35,14 @@ class FragPredictor(nn.Module):
         seq_len: int = 64,
         dropout: float = 0.1,
     ):
+        """
+        Initialization for the FragPredictor.
+
+        Design Choice:
+        Prefer Transformer Encoder over LSTM to capture non-linear, multi-scale 
+        allocation patterns from long-tail history, as global attention is key 
+        to identifying periodic OOM-triggering "bursts" that recurrence often misses.
+        """
         super().__init__()
         self.seq_len = seq_len
         self.hidden_dim = hidden_dim

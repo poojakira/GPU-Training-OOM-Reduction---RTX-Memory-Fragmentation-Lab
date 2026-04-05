@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.optim as optim
 import json
 from pathlib import Path
-from apex_aegis.scheduler.predictor import FragPredictor
+from apex_aegis.predictor.model import FragPredictor
 from apex_aegis.scheduler.dataset import create_dataloaders
 from apex_aegis.utils import get_logger, DefragConfig
 

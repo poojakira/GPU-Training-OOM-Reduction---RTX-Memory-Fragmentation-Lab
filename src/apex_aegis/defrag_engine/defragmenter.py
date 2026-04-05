@@ -20,7 +20,7 @@ from typing import Iterable, List, Dict, Any
 import torch
 
 try:
-    from apex_aegis.defrag_engine.kernels import triton_compaction_copy
+    from apex_aegis.defrag.compaction_kernels import triton_compaction_copy
     HAS_TRITON = True
 except (ImportError, ModuleNotFoundError, AttributeError):  # pragma: no cover
     HAS_TRITON = False  # pragma: no cover

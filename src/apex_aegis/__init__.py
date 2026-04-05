@@ -22,7 +22,7 @@ from apex_aegis.trainer.callback import DefragCallback
 from apex_aegis.trainer.auto_instrument import auto_instrument
 from apex_aegis.trainer.ddp import DDPSyncManager
 from apex_aegis.profiler.collector import AllocationCollector
-from apex_aegis.scheduler.predictor import FragPredictor
+from apex_aegis.predictor.model import FragPredictor
 from apex_aegis.defrag_engine.defragmenter import GPUMemoryDefragmenter
 
 # Re-exported from migrated modules for unified namespace

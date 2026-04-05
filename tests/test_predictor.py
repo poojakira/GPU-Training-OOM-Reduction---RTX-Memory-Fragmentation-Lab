@@ -2,7 +2,7 @@
 
 import torch
 
-from apex_aegis.scheduler.predictor import FragPredictor
+from apex_aegis.predictor.model import FragPredictor
 from apex_aegis.utils import DefragConfig
 
 

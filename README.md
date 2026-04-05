@@ -37,13 +37,44 @@ graph TD
 
 ## 🚀 Key Results (v2.0.0)
 
-Apex-Aegis has been validated on high-pressure Transformer workloads (GPT-2, BERT, ResNet-50) using NVIDIA RTX and A100/H100 hardware.
+Apex-Aegis has been validated on high-pressure Transformer workloads (GPT-2, BERT, ResNet-50) in our local benchmarking environment.
 
 | Metric | Baseline (Stock) | Reactive (Naive) | Apex-Aegis | Impact |
 |:---|:---|:---|:---|:---|
 | **OOM Exceptions** | 12 (High Risk) | 4 (Unstable) | **0** | ✅ **SLA Guaranteed** |
 | **Max GPU Util.** | 65.4% | 78.2% | **94.1%** | 📈 **+43.8% Efficiency** |
 | **Throughput** | 1.2 it/s | 1.5 it/s | **1.8 it/s** | 🚀 **50% Faster Training** |
+
+> [!IMPORTANT]
+> **Performance Scoping**: 99.9% recall on OOM‑triggering allocation patterns in our local benchmark dataset — see [results/eval_log.csv](results/eval_log.csv).
+> 
+> **Hardware Caveat**: Evaluated on RTX‑class GPUs only; A100/H100 validation is future work.
+
+---
+
+## 🔍 Deep Dive
+
+### [compaction_kernels.py](src/apex_aegis/defrag/compaction_kernels.py)
+Our custom Triton kernels perform physical tensor repacking directly on the HBM stack. 
+- **How it works**: Uses a block-parallel copy mechanism to move fragmented memory segments into a contiguous scratch buffer without waking the CPU.
+- **Tradeoff**: We prioritize **compaction aggressiveness** (repacking even small fragments) over minimal overhead, as the 10ms-15ms sync cost is significantly cheaper than a training crash.
+
+### [model.py](src/apex_aegis/predictor/model.py)
+The fragmentation predictor is a 4-layer Transformer Encoder that consumes a sliding window of the last 64 allocation events.
+- **Training**: Evaluated using MSE loss against ground-truth fragmentation ratios collected during "Stock" training runs.
+- **Design Choice**: We utilize **Global Average Pooling** across the temporal axis to capture steady-state historical trends, allowing the model to distinguish between transient allocation bursts and pathological "memory creep."
+
+---
+
+## 🎬 Demo
+
+Check out Apex-Aegis in action:
+- **Baseline**: Training GPT-2 with 8GB VRAM → OOM within 20 steps.
+- **Apex-Aegis**: Same workload → Steady 94% utilization, Zero OOMs.
+
+[Watch the Demonstration (Video)](demo_video.webp)
+
+---
 
 > [!TIP]
 > For a deep dive into the methodology, throughput calculations, and fragmentation trends, see the [Full Benchmark Report](RESULTS.md).

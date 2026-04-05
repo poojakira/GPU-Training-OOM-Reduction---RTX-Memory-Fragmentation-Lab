@@ -57,13 +57,10 @@ def triton_compaction_copy(src: torch.Tensor, dst: torch.Tensor) -> torch.Tensor
     """
     Uses a custom Triton kernel to execute a fast contiguous copy from src to dst.
     This simulates the physical movement of memory blocks during defragmentation.
-    
-    Args:
-        src: The source tensor (potentially fragmented or non-contiguous).
-        dst: The destination tensor (contiguous block).
-        
-    Returns:
-        The destination tensor with copied data.
+
+    Design Tradeoff:
+    Prefer slightly over-allocating scratch space here to avoid fragmentation 
+    in long-running jobs, even if it marginally increases transient VRAM peak.
     """
     assert src.is_cuda and dst.is_cuda, "Tensors must be on CUDA."
     assert src.numel() == dst.numel(), "Source and destination must have the same number of elements."

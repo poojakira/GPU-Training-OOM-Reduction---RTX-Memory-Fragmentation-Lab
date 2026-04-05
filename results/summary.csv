@@ -1,3 +1,2 @@
 run,oom_count,throughput_iter_s,peak_reserved_mb,avg_fragmentation,avg_step_time_s
-1,0,0.547,6639.1,0.150636,1.829041
-2,0,0.548,6595.1,0.151419,1.824375
+1,0,0.547,6581.7,0.151098,1.829349

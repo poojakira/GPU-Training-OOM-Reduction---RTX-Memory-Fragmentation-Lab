@@ -304,13 +304,13 @@ class TestKernelsCoverage:
 
     def test_kernels_triton_import_branches(self):
         """Lines 12-13: HAS_TRITON flag check."""
-        from apex_aegis.defrag_engine import kernels
+        from apex_aegis.defrag import compaction_kernels as kernels
         # Just verify the module loaded and HAS_TRITON is set
         assert isinstance(kernels.HAS_TRITON, bool)
 
     def test_kernels_empty_tensor_return(self):
         """Line 77: n_elements == 0 returns immediately."""
-        from apex_aegis.defrag_engine.kernels import triton_compaction_copy
+        from apex_aegis.defrag.compaction_kernels import triton_compaction_copy
         # Can only be called on CUDA tensors — skip if no CUDA.
         # But the assertion at line 68 prevents CPU tensors. 
         # We'll mock the assertion check.
@@ -327,7 +327,7 @@ class TestKernelsCoverage:
 
     def test_analyze_fragmentation_empty(self):
         """Line 134: n_blocks == 0 returns 0.0."""
-        from apex_aegis.defrag_engine.kernels import analyze_fragmentation_triton
+        from apex_aegis.defrag.compaction_kernels import analyze_fragmentation_triton
         # Empty tensor → should return 0.0
         empty = torch.tensor([], dtype=torch.float32)
         with patch.object(torch.Tensor, "is_cuda", new_callable=PropertyMock, return_value=True):
@@ -336,7 +336,7 @@ class TestKernelsCoverage:
 
     def test_analyze_fragmentation_non_cuda(self):
         """Line 130: non-CUDA tensor gets moved to CUDA (mock path)."""
-        from apex_aegis.defrag_engine.kernels import analyze_fragmentation_triton
+        from apex_aegis.defrag.compaction_kernels import analyze_fragmentation_triton
         t = torch.tensor([100, -500, 200], dtype=torch.float32)
         # Mock the .is_cuda check and .cuda() call
         with patch.object(torch.Tensor, "is_cuda", new_callable=PropertyMock, return_value=False), \
@@ -553,7 +553,7 @@ class TestMonitorCoverage:
         """Lines 188-191: snapshot parsing in _predict_and_act."""
         from apex_aegis.scheduler.monitor import DefragMonitor
         from apex_aegis.utils import DefragConfig
-        from apex_aegis.scheduler.predictor import FragPredictor
+        from apex_aegis.predictor.model import FragPredictor
 
         config = DefragConfig()
         config.enable_snapshots = True
@@ -574,7 +574,7 @@ class TestMonitorCoverage:
         """Lines 199, 224: pending compaction when ddp_sync is True."""
         from apex_aegis.scheduler.monitor import DefragMonitor
         from apex_aegis.utils import DefragConfig
-        from apex_aegis.scheduler.predictor import FragPredictor
+        from apex_aegis.predictor.model import FragPredictor
 
         config = DefragConfig()
         config.ddp_sync = True

@@ -18,7 +18,7 @@ import threading
 import torch
 import numpy as np
 from typing import Optional, Dict, List
-from apex_aegis.scheduler.predictor import FragPredictor
+from apex_aegis.predictor.model import FragPredictor
 from apex_aegis.defrag_engine.defragmenter import GPUMemoryDefragmenter
 from apex_aegis.utils import get_logger, DefragConfig, parse_memory_snapshot
 

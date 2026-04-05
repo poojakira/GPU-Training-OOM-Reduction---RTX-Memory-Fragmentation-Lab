@@ -23,7 +23,7 @@ import time
 
 try:
     import triton  # type: ignore
-    from apex_aegis.defrag_engine.kernels import triton_compaction_copy  # type: ignore  # pragma: no cover
+    from apex_aegis.defrag.compaction_kernels import triton_compaction_copy, analyze_fragmentation_triton  # pragma: no cover
     TRITON_AVAILABLE = True  # pragma: no cover
 except ImportError:  # pragma: no cover
     TRITON_AVAILABLE = False
