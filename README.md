@@ -1,5 +1,6 @@
-# GPU-Training-Crash-Guard (Apex-Aegis)
+GPU-Training-Crash-Guard (Apex-Aegis)
 =====================================
+
 Prototype lab for modeling GPU memory fragmentation and deploying **GPU-Training-Crash-Guard (Apex-Aegis)**, a PyTorch guardrail that predicts fragmentation and prevents training-time OOM crashes on RTX-class workloads.
 
 [![CI](https://github.com/poojakira/GPU-Training-OOM-Reduction---RTX-Memory-Fragmentation-Lab/actions/workflows/ci.yml/badge.svg)](https://github.com/poojakira/GPU-Training-OOM-Reduction---RTX-Memory-Fragmentation-Lab/actions/workflows/ci.yml)
