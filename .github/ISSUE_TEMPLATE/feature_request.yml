@@ -1,0 +1,52 @@
+name: 🚀 Feature Request
+description: Suggest an idea for improvement
+title: "[FEATURE]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature!
+  - type: textarea
+    id: idea
+    attributes:
+      label: Feature Idea
+      description: A clear and concise description of what you want to happen.
+      placeholder: I'd like to support H100 GPUs...
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: Currently, A100/H100 GPUs are not validated...
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like.
+      placeholder: Multi-stream data movement hooks for hopper...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or features you've considered.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Additional Context
+      description: Add any other context or screenshots about the feature request here.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched for existing feature requests.
+          required: true
+        - label: This feature request is within the scope of Apex-Aegis.
+          required: true
