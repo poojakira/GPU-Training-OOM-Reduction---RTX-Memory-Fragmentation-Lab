@@ -6,7 +6,7 @@ Unified execution CLI for the apex_aegis NVIDIA-grade ML infrastructure.
 Wraps the entire system behind a clean, config-driven pipeline.
 
 Usage:
-  python run.py --config config.yaml
+  python run.py --config configs/config.yaml
 """
 
 import argparse
