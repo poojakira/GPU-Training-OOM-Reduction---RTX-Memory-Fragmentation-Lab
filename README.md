@@ -1,4 +1,4 @@
-# RTX-OOM-Guard (apex-aegis)
+# RTX-OOM-Guard
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://python.org)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c)](https://pytorch.org)
@@ -35,7 +35,7 @@ PyTorch's `CachingAllocator` leaves VRAM fragmented during long training runs, c
 
 Benchmarked across BERT-base, BERT-large, GPT-2, GPT-2-medium, ResNet-50, ResNet-101, EfficientNet-B4, ViT-Large with batch sizes 2–16 and VRAM configs 6 GB/8 GB/12 GB.
 
-| Metric | Baseline | With apex-aegis |
+| Metric | Baseline | With RTX-OOM-Guard |
 |---|---|---|
 | OOM crashes (100-step run) | 23 | 0 |
 | Peak VRAM utilization | 94% | 87% |
