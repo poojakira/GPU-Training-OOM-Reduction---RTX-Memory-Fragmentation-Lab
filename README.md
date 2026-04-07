@@ -4,6 +4,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-ee4c2c)](https://pytorch.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 [![CI](https://github.com/poojakira/RTX-OOM-Guard/actions/workflows/ci.yml/badge.svg)](https://github.com/poojakira/RTX-OOM-Guard/actions)
+[![Codecov](https://codecov.io/gh/poojakira/RTX-OOM-Guard/branch/main/graph/badge.svg)](https://codecov.io/gh/poojakira/RTX-OOM-Guard)
 
 **Proactive CUDA memory defragmenter for PyTorch that predicts and prevents GPU out-of-memory (OOM) crashes by actively compacting VRAM during training.**
 
@@ -43,6 +44,57 @@ Benchmarked across BERT-base, BERT-large, GPT-2, GPT-2-medium, ResNet-50, ResNet
 | Fragmentation ratio | 0.61 avg | 0.18 avg |
 
 ---
+
+### Demo
+
+![RTX-OOM-Guard Dashboard Demo](demo_video.webp)
+
+*A real-time React dashboard showing VRAM fragmentation analysis, DDP choreography, and Triton kernel tracing across 13 monitoring panels.*
+
+### Architecture
+
+```text
+                            ┌─────────────────────────────────────────────────────────────┐
+                            │                    Training Loop (PyTorch)                  │
+                            │  model(batch) → loss.backward() → optimizer.step()          │
+                            └──────────────────────┬──────────────────────────────────────┘
+                                                   │
+                    ┌──────────────────────────────┼──────────────────────────────┐
+                    │                              │                              │
+         ┌──────────▼──────────┐      ┌───────────▼───────────┐      ┌──────────▼──────────┐
+         │   AllocationCollector│      │    DefragMonitor       │      │   FragPredictor      │
+         │   (hooks allocator) │      │    (polls @ 50ms)     │      │   (ML model)         │
+         └──────────┬──────────┘      └───────────┬───────────┘      └──────────┬──────────┘
+                    │                              │                              │
+                    ▼                              ▼                              ▼
+         ┌───────────────────┐      ┌───────────────────────────┐      ┌───────────────────┐
+         │ Allocation Event  │      │   Fragmentation Score     │      │  Fragmentation    │
+         │ Stream (Parquet)  │      │   ≥ threshold? (0.7)      │      │  Prediction       │
+         └─────────┬─────────┘      └───────────┬───────────────┘      └─────────┬─────────┘
+                   │                            │                                │
+                   └────────────────────────────┼────────────────────────────────┘
+                                                │
+                                                ▼
+                                   ┌─────────────────────────┐
+                                   │  GPUMemoryDefragmenter  │
+                                   │  - Compaction Policy    │
+                                   │  - Triton Kernel (fast) │
+                                   │  - PyTorch Fallback     │
+                                   │  - DDPSyncManager       │
+                                   └────────────┬────────────┘
+                                                │
+                                                ▼
+                                   ┌─────────────────────────┐
+                                   │   VRAM Compacted!       │
+                                   │   (contiguous blocks)   │
+                                   └────────────┬────────────┘
+                                                │
+                                                ▼
+                                   ┌─────────────────────────┐
+                                   │  Training Continues     │
+                                   │  (no OOM crash)         │
+                                   └─────────────────────────┘
+```
 
 ## Quick Start
 
