@@ -252,4 +252,4 @@ MIT License — see [LICENSE](LICENSE).
 
 ## Author
 
-Built by [@poojakira](https://github.com/poojakira) — Robotics & Automation Engineering, Arizona State University.
+Built by [Pooja Kiran](https://github.com/poojakira) — Master's in Information Technology, Arizona State University.
